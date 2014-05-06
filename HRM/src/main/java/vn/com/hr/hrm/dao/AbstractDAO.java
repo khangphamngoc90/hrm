@@ -5,7 +5,10 @@ import com.db4o.ObjectSet;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.DatabaseReadOnlyException;
 import com.db4o.ext.Db4oIOException;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import vn.com.hr.hrm.data.config.ManagerDatabase;
 import vn.com.hr.hrm.entities.IEntity;
 
@@ -66,6 +69,24 @@ public class AbstractDAO<E> {
                 } else {
                     return null;
                 }
+            }
+        } catch (Db4oIOException | DatabaseClosedException e) {
+        } finally {
+            container.close();
+        }
+        return null;
+    }
+    
+    public List<E> selectAll(E entity) {
+        ObjectContainer container = getDb();
+        try {
+            if (entity instanceof IEntity) {
+            	List<E> list = new ArrayList<>();
+            	ObjectSet<? extends Object> set = container.query(entity.getClass());
+            	while(set.hasNext()){
+            		list.add((E) set.next());
+            	}
+            	return list;
             }
         } catch (Db4oIOException | DatabaseClosedException e) {
         } finally {
