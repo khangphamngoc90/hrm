@@ -4,10 +4,10 @@ package vn.com.hr.hrm.entities;
  *
  * @author khangpn
  */
-public class District implements IEntity{
+public class District implements IEntity {
 
     private long id;
-    private long idCity;
+    private City city;
     private String code;
     private String name;
 
@@ -19,12 +19,12 @@ public class District implements IEntity{
         this.id = id;
     }
 
-    public long getIdCity() {
-        return idCity;
+    public City getCity() {
+        return city;
     }
 
-    public void setIdCity(long idCity) {
-        this.idCity = idCity;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getCode() {
@@ -42,5 +42,5 @@ public class District implements IEntity{
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }

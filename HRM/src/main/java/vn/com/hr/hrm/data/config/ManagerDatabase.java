@@ -15,21 +15,23 @@ public class ManagerDatabase {
     private ObjectContainer db = null;
 
     public static ManagerDatabase getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new ManagerDatabase();
         }
         return instance;
     }
 
     private void open() {
-        db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DB_URL);
+        if (this.db == null || db.close()) {
+            db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DB_URL);
+        }
     }
 
-    public ObjectContainer getDB(){
+    public ObjectContainer getDB() {
         open();
         return this.db;
     }
-    
+
     private ManagerDatabase() {
 
     }
